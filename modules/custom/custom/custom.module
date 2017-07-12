@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * @file
+ * Contains custom.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\views\ViewExecutable;
+use \Drupal\node\Entity\Node;
+/**
+ * Implements hook_help().
+ */
+function custom_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the custom module.
+    case 'help.page.custom':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom Module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function custom_theme() {
+  return [
+    'custom' => [
+      'template' => 'custom',
+      'render element' => 'children',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_views_query_alter
+ */
+function custom_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  if($view->id() == 'other_stories'){
+    $nid = $view->query->where[0]['conditions'][0]['value'][':node_field_data_nid'];
+    $node = Node::load($nid);
+    $tid = $node->get('field_funny_story_type')->getValue();
+    $view->query->where[0]['conditions'][1]['value'] = [':taxonomy_term_field_data_tid' => $tid[0]['target_id']];        
+  }
+}
+
+/**
+ * hook_block_view_alter
+ */
+//function custom_block_view_alter(array &$build, \Drupal\Core\Block\BlockPluginInterface $block) {  
+//  $build['#cache'] = ['max-age' => 20];
+//}
+
+/**
+ * hook_node_view
+ */
+//function custom_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+//  if($view_mode == 'teaser'){
+//    $build['#cache']['max-age'] = 20;
+//  }
+//}
+
+/**
+ * hook_form_alter
+ */
+function custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if($form_id == 'contact_message_feedback_form') {
+    $form['name']['#title'] = t('Họ tên');
+    $form['mail']['#title'] = t('Email');
+    $form['subject']['widget'][0]['value']['#title'] = t('Tiêu đề');
+    $form['message']['widget'][0]['value']['#title'] = t('Nội dung');
+    $form['actions']['submit']['#value'] = t('Gửi nội dung');
+    unset($form['actions']['preview']);
+  }
+}
+
+/**
+ * hook_cron
+ */
+function custom_cron() {
+  db_delete('cache_render')->execute();
+}
