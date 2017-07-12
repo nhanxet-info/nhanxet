@@ -1,22 +1,8 @@
 
 get_content.content_controller_get_data:
-  path: '/get_content/get_data/{name}'
+  path: '/get_content'
   defaults:
     _controller: '\Drupal\get_content\Controller\ContentController::get_data'
-    _title: 'Get Content'
-  requirements:
-    _permission: 'access administration pages'
-get_content.get_data_from_xem:
-  path: '/get_content/get_data_xem/{name}'
-  defaults:
-    _controller: '\Drupal\get_content\Controller\ContentController::get_data_xem'
-    _title: 'Get Content'
-  requirements:
-    _permission: 'access administration pages'
-get_content.get_data_from_cuoibebung:
-  path: '/get_content/get_data_cuoibebung/{name}'
-  defaults:
-    _controller: '\Drupal\get_content\Controller\ContentController::get_data_cuoibebung'
     _title: 'Get Content'
   requirements:
     _permission: 'access administration pages'
