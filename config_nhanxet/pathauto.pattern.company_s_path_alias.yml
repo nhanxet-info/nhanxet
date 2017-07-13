@@ -1,0 +1,22 @@
+uuid: e85d580c-6fe1-4e9f-bc24-90d414713586
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: company_s_path_alias
+label: 'Company''s path alias'
+type: 'canonical_entities:node'
+pattern: 'cong-ty/[node:nid]'
+selection_criteria:
+  38cdde81-d28f-4d04-b56c-c233714d2b6a:
+    id: node_type
+    bundles:
+      company: company
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 38cdde81-d28f-4d04-b56c-c233714d2b6a
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -1,0 +1,332 @@
+uuid: 252647da-d887-460c-8917-9d08890887a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.company.field_cap_chuong_loai_khoan
+    - field.field.node.company.field_chu_so_huu
+    - field.field.node.company.field_co_quan_cap
+    - field.field.node.company.field_cq_ra_quyet_dinh
+    - field.field.node.company.field_dia_chi_chu_so_huu
+    - field.field.node.company.field_dia_chi_giam_doc
+    - field.field.node.company.field_dia_chi_ke_toan_truong
+    - field.field.node.company.field_dia_chi_tru_so
+    - field.field.node.company.field_diachi_nhan_thong_bao_thue
+    - field.field.node.company.field_dien_thoai_fax
+    - field.field.node.company.field_dien_thoai_fax_thue
+    - field.field.node.company.field_gpkd_ngay_cap
+    - field.field.node.company.field_hinh_thuc_h_toan
+    - field.field.node.company.field_ke_toan_truong
+    - field.field.node.company.field_loai_thue_phai_nop
+    - field.field.node.company.field_ma_so_dtnt
+    - field.field.node.company.field_ma_so_hien_thoi
+    - field.field.node.company.field_mo_ta
+    - field.field.node.company.field_nam_tai_chinh
+    - field.field.node.company.field_nganh_nghe_chinh
+    - field.field.node.company.field_ngay_bat_dau_hd
+    - field.field.node.company.field_ngay_cap
+    - field.field.node.company.field_ngay_dong_mst
+    - field.field.node.company.field_ngay_nhan_tk
+    - field.field.node.company.field_nguon
+    - field.field.node.company.field_nguon_phan_trang
+    - field.field.node.company.field_noi_dang_ky_nop_thue
+    - field.field.node.company.field_noi_dang_ky_quan_ly
+    - field.field.node.company.field_pp_tinh_thue_gtgt
+    - field.field.node.company.field_qdtl_ngay_cap
+    - field.field.node.company.field_ten_chinh_thuc
+    - field.field.node.company.field_ten_giam_doc
+    - field.field.node.company.field_ten_giao_dich
+    - field.field.node.company.field_tong_so_lao_dong
+    - field.field.node.company.field_von_dieu_le
+    - node.type.company
+  module:
+    - text
+    - user
+id: node.company.default
+targetEntityType: node
+bundle: company
+mode: default
+content:
+  field_cap_chuong_loai_khoan:
+    weight: 123
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_chu_so_huu:
+    weight: 126
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_co_quan_cap:
+    weight: 116
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_cq_ra_quyet_dinh:
+    weight: 114
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_dia_chi_chu_so_huu:
+    weight: 127
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_dia_chi_giam_doc:
+    weight: 129
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_dia_chi_ke_toan_truong:
+    weight: 131
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_dia_chi_tru_so:
+    weight: 109
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_diachi_nhan_thong_bao_thue:
+    weight: 112
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_dien_thoai_fax:
+    weight: 108
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_dien_thoai_fax_thue:
+    weight: 111
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_gpkd_ngay_cap:
+    weight: 115
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_hinh_thuc_h_toan:
+    weight: 124
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_ke_toan_truong:
+    weight: 130
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_loai_thue_phai_nop:
+    weight: 135
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_ma_so_dtnt:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_ma_so_hien_thoi:
+    weight: 118
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_mo_ta:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_nam_tai_chinh:
+    weight: 117
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_nganh_nghe_chinh:
+    weight: 132
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_ngay_bat_dau_hd:
+    weight: 119
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_ngay_cap:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_ngay_dong_mst:
+    weight: 104
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_ngay_nhan_tk:
+    weight: 121
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_nguon:
+    weight: 134
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_nguon_phan_trang:
+    weight: 136
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_noi_dang_ky_nop_thue:
+    weight: 110
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_noi_dang_ky_quan_ly:
+    weight: 107
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_pp_tinh_thue_gtgt:
+    weight: 125
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_qdtl_ngay_cap:
+    weight: 113
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_ten_chinh_thuc:
+    weight: 105
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_ten_giam_doc:
+    weight: 128
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_ten_giao_dich:
+    weight: 106
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_tong_so_lao_dong:
+    weight: 122
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_von_dieu_le:
+    weight: 120
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  langcode: true
