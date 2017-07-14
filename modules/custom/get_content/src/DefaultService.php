@@ -22,12 +22,20 @@ class DefaultService implements DefaultServiceInterface {
   
 
   public function get_all_url_per_page($url) {
+    $url_arr = explode('?p=', $url);
+    $next = $url_arr[1] + 1;
+    
+//    echo $next;
     $html = file_get_html($url);
     $links = $html->find('h2 a');
-    foreach ($links as $link) {
-      $this->get_data_via_page($link->href, $url);
-      break;
-    }
+    if(count($links) > 0) {
+      foreach ($links as $link) {
+        $this->get_data_via_page($link->href, $url);
+      }
+      sleep(1); //page 22 will see some issues(delayed 2s)
+      header("Location: http://nhanxet.local/get_content?url=$url_arr[0]?p=$next");
+      exit;
+    }   
     return t('Complete');
   }
 
