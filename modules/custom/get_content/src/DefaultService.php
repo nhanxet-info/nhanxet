@@ -46,13 +46,9 @@ class DefaultService implements DefaultServiceInterface {
 //    }   
 //    $body = '';
     $table = $html->find('table[class=table table-striped table-bordered table-responsive table-details]', 0);
-//    foreach($tables as $element) {
-//    $ths = $table->find('th');
+
     $tds = $table->find('td');
-//    $label_arr = [];
     $data_arr = [];
-//    foreach ($ths as $th)
-//      $label_arr[] = html_entity_decode($th->plaintext);
 
     foreach ($tds as $key => $td) {
       if ($key < 31)
@@ -61,13 +57,6 @@ class DefaultService implements DefaultServiceInterface {
         $data_arr[] = html_entity_decode($td->innertext);
     }
 
-
-//    $t_label = $label_arr;
-//    $t_data = $data_arr;
-//      echo 'ok';
-//      echo 'ok';
-//      break;
-//    }
     $node = Node::create([
                 'type' => 'company',
                 'title' => $title,
@@ -180,5 +169,38 @@ class DefaultService implements DefaultServiceInterface {
                 ],
     ]);
     $node->save();
+  }
+  
+  public function get_all_url_province($url) {
+    $html = file_get_html($url);
+    $provinces = $html->find('select[id=TinhThanhIDValue] option');
+    foreach ($provinces as $province) {      
+      if(strlen($province->attr['value']) > 0) {
+        $this->get_all_url_quan_huyen ($province->attr['value'], $province->plaintext);
+//        break; 
+      }        
+    }      
+    return t('Complete');
+  }
+  
+  public function get_all_url_quan_huyen($url, $province) {
+    $vid = 'tinh_thanh_pho';
+    $new_term = Term::create([
+      'name' => html_entity_decode($province),
+      'vid' => $vid
+    ]);
+    $new_term->save();    
+    $default_province = 'https://thongtindoanhnghiep.co/getDistrict?location=';
+    $html = file_get_html($default_province . $url);
+    $datas = $html->find('option');
+    foreach($datas as $data) {
+      if(html_entity_decode($data->plaintext) != 'Quận/Huyện')
+        Term::create([
+          'name' => html_entity_decode($data->plaintext), 
+          'vid' => $vid,
+          'parent' => $new_term->id()
+        ])->save();
+    }
+    return t('Complete');
   }
 }
