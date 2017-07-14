@@ -1,0 +1,22 @@
+uuid: 06e61cc1-c885-433d-9042-cc2e72fcadf6
+langcode: vi
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - bartik
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: bartik_help
+theme: bartik
+region: content
+weight: -30
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: 'Trợ giúp'
+  provider: help
+  label_display: '0'
+visibility: {  }

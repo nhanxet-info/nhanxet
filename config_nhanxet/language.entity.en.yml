@@ -1,9 +1,0 @@
-uuid: e138909b-2ac6-46ff-a817-c1b6196e67f4
-langcode: vi
-status: true
-dependencies: {  }
-id: en
-label: English
-direction: ltr
-weight: 1
-locked: false
