@@ -93,9 +93,9 @@ class DefaultService implements DefaultServiceInterface {
                     'value' => $data_arr[6]
                 ],
         // this field need to be rewrited again by taxonomy fields
-//                'field_dia_chi_tru_so' => [
-//                    'value' => $data_arr[7]
-//                ],
+                'field_dia_chi_tru_so_chi_tiet' => [
+                    'value' => $data_arr[7]
+                ],
         
                 'field_noi_dang_ky_nop_thue' => [
                     'value' => $data_arr[8]
@@ -124,15 +124,15 @@ class DefaultService implements DefaultServiceInterface {
                 'field_ma_so_hien_thoi' => [
                     'value' => $data_arr[16]
                 ],
-                'field_ngay_bat_dau_hd' => [
+                'field_ngay_nhan_tk' => [
                     'value' => $data_arr[17]
                 ],
-                'field_von_dieu_le' => [
+                'field_ngay_bat_dau_hd' => [
                     'value' => $data_arr[18]
                 ],
-                'field_ngay_nhan_tk' => [
+                'field_von_dieu_le' => [
                     'value' => $data_arr[19]
-                ],
+                ],                
                 'field_tong_so_lao_dong' => [
                     'value' => $data_arr[20]
                 ],
@@ -177,49 +177,49 @@ class DefaultService implements DefaultServiceInterface {
                     'value' => $p_url
                 ],
     ];
-    $address = $data_arr[7];
-    $address_arr = explode(',', $address);
-    $count = count($address_arr);
-    if($count > 3) {      
-      $test = trim($address_arr[$count - 3]);
-      $test = trim($address_arr[$count - 2]);
-      $test = trim($address_arr[$count - 1]);
-      $field_dia_chi_phuong_xa = $this->get_tid_by_name(trim($address_arr[$count - 3]));
-      $field_dia_chi_quan_huyen = $this->get_tid_by_name(trim($address_arr[$count - 2]));
-      $field_dia_chi_tinh_thanh_pho = $this->get_tid_by_name(trim($address_arr[$count - 1]));
-      if($field_dia_chi_tinh_thanh_pho < 1) {
-        $term_id_tinh_thanhpho = Term::create([
-          'name' => trim($address_arr[$count - 1]), 
-          'vid' => 'tinh_thanh_pho',          
-        ])->save();
-        sleep(1);
-        $field_dia_chi_tinh_thanh_pho = $term_id_tinh_thanhpho->id();        
-      }
-      $data['field_dia_chi_tinh_thanh_pho']['target_id'] = $field_dia_chi_tinh_thanh_pho;
-      if($field_dia_chi_quan_huyen < 1) {
-        $term_id_quan_huyen = Term::create([
-          'name' => trim($address_arr[$count - 2]), 
-          'vid' => 'tinh_thanh_pho',
-          'parent' => $field_dia_chi_tinh_thanh_pho
-        ])->save();
-        sleep(1);
-        $field_dia_chi_quan_huyen = $term_id_quan_huyen->id();
-      }
-      $data['field_dia_chi_quan_huyen']['target_id'] = $field_dia_chi_quan_huyen;
-      if($field_dia_chi_phuong_xa > 0)
-        $data['field_dia_chi_phuong_xa']['target_id'] = $field_dia_chi_phuong_xa;
-      else {
-        $term_id_phuong_xa = Term::create([
-          'name' => trim($address_arr[$count - 3]), 
-          'vid' => 'tinh_thanh_pho',
-          'parent' => $field_dia_chi_quan_huyen
-        ])->save();
-        sleep(1);
-        $data['field_dia_chi_phuong_xa']['target_id'] = $term_id_phuong_xa->id();
-      }
-      $field_dia_chi_tru_so_chi_tiet = array_slice($t_arr, 0, $count - 3);
-      $data['field_dia_chi_tru_so_chi_tiet']['value'] = implode(', ', $field_dia_chi_tru_so_chi_tiet);
-    }    
+//    $address = $data_arr[7];
+//    $address_arr = explode(',', $address);
+//    $count = count($address_arr);
+//    if($count > 3) {      
+//      $test = trim($address_arr[$count - 3]);
+//      $test = trim($address_arr[$count - 2]);
+//      $test = trim($address_arr[$count - 1]);
+//      $field_dia_chi_phuong_xa = $this->get_tid_by_name(trim($address_arr[$count - 3]));
+//      $field_dia_chi_quan_huyen = $this->get_tid_by_name(trim($address_arr[$count - 2]));
+//      $field_dia_chi_tinh_thanh_pho = $this->get_tid_by_name(trim($address_arr[$count - 1]));
+//      if($field_dia_chi_tinh_thanh_pho < 1) {
+//        $term_id_tinh_thanhpho = Term::create([
+//          'name' => trim($address_arr[$count - 1]), 
+//          'vid' => 'tinh_thanh_pho',          
+//        ])->save();
+//        sleep(1);
+//        $field_dia_chi_tinh_thanh_pho = $term_id_tinh_thanhpho->id();        
+//      }
+//      $data['field_dia_chi_tinh_thanh_pho']['target_id'] = $field_dia_chi_tinh_thanh_pho;
+//      if($field_dia_chi_quan_huyen < 1) {
+//        $term_id_quan_huyen = Term::create([
+//          'name' => trim($address_arr[$count - 2]), 
+//          'vid' => 'tinh_thanh_pho',
+//          'parent' => $field_dia_chi_tinh_thanh_pho
+//        ])->save();
+//        sleep(1);
+//        $field_dia_chi_quan_huyen = $term_id_quan_huyen->id();
+//      }
+//      $data['field_dia_chi_quan_huyen']['target_id'] = $field_dia_chi_quan_huyen;
+//      if($field_dia_chi_phuong_xa > 0)
+//        $data['field_dia_chi_phuong_xa']['target_id'] = $field_dia_chi_phuong_xa;
+//      else {
+//        $term_id_phuong_xa = Term::create([
+//          'name' => trim($address_arr[$count - 3]), 
+//          'vid' => 'tinh_thanh_pho',
+//          'parent' => $field_dia_chi_quan_huyen
+//        ])->save();
+//        sleep(1);
+//        $data['field_dia_chi_phuong_xa']['target_id'] = $term_id_phuong_xa->id();
+//      }
+//      $field_dia_chi_tru_so_chi_tiet = array_slice($t_arr, 0, $count - 3);
+//      $data['field_dia_chi_tru_so_chi_tiet']['value'] = implode(', ', $field_dia_chi_tru_so_chi_tiet);
+//    }    
     $node = Node::create($data);
     $node->save();
   }
