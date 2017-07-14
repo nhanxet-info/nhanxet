@@ -56,8 +56,7 @@ class DefaultService implements DefaultServiceInterface {
       else
         $data_arr[] = html_entity_decode($td->innertext);
     }
-
-    $node = Node::create([
+    $data = [
                 'type' => 'company',
                 'title' => $title,
                 'status' => 0,
@@ -85,9 +84,11 @@ class DefaultService implements DefaultServiceInterface {
                 'field_dien_thoai_fax' => [
                     'value' => $data_arr[6]
                 ],
-                'field_dia_chi_tru_so' => [
-                    'value' => $data_arr[7]
-                ],
+        // this field need to be rewrited again by taxonomy fields
+//                'field_dia_chi_tru_so' => [
+//                    'value' => $data_arr[7]
+//                ],
+        
                 'field_noi_dang_ky_nop_thue' => [
                     'value' => $data_arr[8]
                 ],
@@ -167,7 +168,51 @@ class DefaultService implements DefaultServiceInterface {
                 'field_nguon_phan_trang' => [
                     'value' => $p_url
                 ],
-    ]);
+    ];
+    $address = $data_arr[7];
+    $address_arr = explode(',', $address);
+    $count = count($address_arr);
+    if($count > 3) {      
+      $test = trim($address_arr[$count - 3]);
+      $test = trim($address_arr[$count - 2]);
+      $test = trim($address_arr[$count - 1]);
+      $field_dia_chi_phuong_xa = $this->get_tid_by_name(trim($address_arr[$count - 3]));
+      $field_dia_chi_quan_huyen = $this->get_tid_by_name(trim($address_arr[$count - 2]));
+      $field_dia_chi_tinh_thanh_pho = $this->get_tid_by_name(trim($address_arr[$count - 1]));
+      if($field_dia_chi_tinh_thanh_pho < 1) {
+        $term_id_tinh_thanhpho = Term::create([
+          'name' => trim($address_arr[$count - 1]), 
+          'vid' => 'tinh_thanh_pho',          
+        ])->save();
+        sleep(1);
+        $field_dia_chi_tinh_thanh_pho = $term_id_tinh_thanhpho->id();        
+      }
+      $data['field_dia_chi_tinh_thanh_pho']['target_id'] = $field_dia_chi_tinh_thanh_pho;
+      if($field_dia_chi_quan_huyen < 1) {
+        $term_id_quan_huyen = Term::create([
+          'name' => trim($address_arr[$count - 2]), 
+          'vid' => 'tinh_thanh_pho',
+          'parent' => $field_dia_chi_tinh_thanh_pho
+        ])->save();
+        sleep(1);
+        $field_dia_chi_quan_huyen = $term_id_quan_huyen->id();
+      }
+      $data['field_dia_chi_quan_huyen']['target_id'] = $field_dia_chi_quan_huyen;
+      if($field_dia_chi_phuong_xa > 0)
+        $data['field_dia_chi_phuong_xa']['target_id'] = $field_dia_chi_phuong_xa;
+      else {
+        $term_id_phuong_xa = Term::create([
+          'name' => trim($address_arr[$count - 3]), 
+          'vid' => 'tinh_thanh_pho',
+          'parent' => $field_dia_chi_quan_huyen
+        ])->save();
+        sleep(1);
+        $data['field_dia_chi_phuong_xa']['target_id'] = $term_id_phuong_xa->id();
+      }
+      $field_dia_chi_tru_so_chi_tiet = array_slice($t_arr, 0, $count - 3);
+      $data['field_dia_chi_tru_so_chi_tiet']['value'] = implode(', ', $field_dia_chi_tru_so_chi_tiet);
+    }    
+    $node = Node::create($data);
     $node->save();
   }
   
@@ -202,5 +247,15 @@ class DefaultService implements DefaultServiceInterface {
         ])->save();
     }
     return t('Complete');
+  }
+  
+  private function get_tid_by_name($name, $vid = 'tinh_thanh_pho') {
+    $query = \Drupal::database()->select('taxonomy_term_field_data', 't');
+    $query->addField('t', 'tid');
+    $query->condition('t.vid', $vid);
+    $query->condition('t.name', trim($name));
+    $query->range(0, 1);
+    $result = $query->execute()->fetchField();
+    return $result;
   }
 }
