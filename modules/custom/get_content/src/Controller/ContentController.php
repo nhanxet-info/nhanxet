@@ -79,4 +79,16 @@ class ContentController extends ControllerBase {
       '#markup' => 'Get Phuong/Xa Completely',
     ];    
   }
+  public function get_detail_url() {
+    $parameters = \Drupal::request()->query;
+    $parameters = $parameters->all();    
+    $url = $parameters['url'];
+    $times = $parameters['times'];
+    $this->get_content_default->get_detail_url($url, $times);
+    
+    return [
+      '#type' => 'markup',
+      '#markup' => 'Get Phuong/Xa Completely',
+    ];    
+  }
 }

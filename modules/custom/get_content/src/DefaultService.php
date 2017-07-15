@@ -319,6 +319,10 @@ class DefaultService implements DefaultServiceInterface {
     return t('Complete');
   }
   
+  public function get_detail_url($url, $times) {
+    
+  }
+  
   public function get_all_url_quan_huyen($url, $province) {
     $vid = 'tinh_thanh_pho';
     $new_term = Term::create([

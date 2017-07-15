@@ -13,4 +13,5 @@ interface DefaultServiceInterface {
   public function get_data_via_page($url, $p_url);  
   public function get_all_url_province($url);
   public function get_all_url_quan_huyen($url, $province);
+  public function get_detail_url($url, $times);
 }
