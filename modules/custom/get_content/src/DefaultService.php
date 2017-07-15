@@ -15,15 +15,42 @@ class DefaultService implements DefaultServiceInterface {
   /**
    * Constructor.
    */
+  private $source_website;
   public function __construct() {
     include "modules/custom/get_content/src/include/simple_html_dom.php";
+    $this->source_website = 'https://thongtindoanhnghiep.co';
   }
 
-  
+  public function get_all_url_phuong_xa($url) {
+    $html_tinh_tpho = file_get_html($url);
+    $link_tinh_tphos = $html_tinh_tpho->find('div[class=row] p a');
+    foreach($link_tinh_tphos as $key => $link_tinh_tpho) {
+      if($key < 60)
+        continue;
+      if($key == 80)
+        break;
+      $html_quan_huyen = file_get_html($this->source_website . $link_tinh_tpho->href);
+      
+      $links_quan_huyens = $html_quan_huyen->find('ul[id=sidebar-nav] ul a');
+      if(count($links_quan_huyens) > 0) {
+        foreach($links_quan_huyens as $links_quan_huyen) {
+          $test = $links_quan_huyen->href;
+          $html_phuong_xa = file_get_html($this->source_website . $links_quan_huyen->href);
+          $links_phuong_xas = $html_phuong_xa->find('ul[id=sidebar-nav] ul a');
+          foreach ($links_phuong_xas as $links_phuong_xa)
+            echo $link_tinh_tpho->innertext . 
+                  ':::' . $links_quan_huyen->innertext . 
+                  ':::' .$links_phuong_xa->innertext . ':::' . $links_phuong_xa->href . '<br />';
+        }      
+      }
+    }  
+    return t('Complete');
+  }
 
   public function get_all_url_per_page($url) {
     $url_arr = explode('?p=', $url);
-    $next = $url_arr[1] + 1;
+    $current = $url_arr[1];
+    $next = $current + 1;
     
 //    echo $next;
     $html = file_get_html($url);
@@ -33,8 +60,10 @@ class DefaultService implements DefaultServiceInterface {
         $this->get_data_via_page($link->href, $url);
       }
       sleep(1); //page 22 will see some issues(delayed 2s)
+      
       header("Location: http://nhanxet.local/get_content?url=$url_arr[0]?p=$next");
       exit;
+      
     }   
     return t('Complete');
   }
@@ -67,7 +96,8 @@ class DefaultService implements DefaultServiceInterface {
     $data = [
                 'type' => 'company',
                 'title' => $title,
-                'status' => 0,
+                'status' => 1,
+                'revision' => 0,
                 'field_ma_so_dtnt' => [
                     'value' => $data_arr[0]
                 ],
@@ -225,14 +255,67 @@ class DefaultService implements DefaultServiceInterface {
   }
   
   public function get_all_url_province($url) {
-    $html = file_get_html($url);
-    $provinces = $html->find('select[id=TinhThanhIDValue] option');
-    foreach ($provinces as $province) {      
-      if(strlen($province->attr['value']) > 0) {
-        $this->get_all_url_quan_huyen ($province->attr['value'], $province->plaintext);
-//        break; 
-      }        
-    }      
+    $myfile = fopen("info", "r") or die("Unable to open file!");
+    // Output one line until end-of-file
+    
+    while(!feof($myfile)) {
+      $line = fgets($myfile);
+      $lines = explode(':::', $line);
+      $tinh = $this->get_tid_by_name($lines[0]);      
+      if($tinh) {
+        $huyen = $this->get_tid_by_name($lines[1]);        
+        if($huyen) {
+          $xa = $this->get_tid_by_name($lines[2]);
+          if($xa) {
+
+          }
+          else {
+            $xa_id = Term::create([
+              'name' => $lines[2], 
+              'vid' => 'tinh_thanh_pho',
+              'parent' => $huyen
+            ])->save();
+          }
+        }
+        else { //if huyen doesn't exist => xa doesn't too
+          $huyen_id = Term::create([
+            'name' => $lines[1], 
+            'vid' => 'tinh_thanh_pho',
+            'parent' => $tinh
+          ])->save();
+          $xa_id = Term::create([
+            'name' => $lines[2], 
+            'vid' => 'tinh_thanh_pho',
+            'parent' => $huyen_id->id()
+          ])->save();
+        }
+      }
+      else { //if tinh doesn't exist => huyen, xa don't exist too
+        $tinh_id = Term::create([
+          'name' => $lines[0], 
+          'vid' => 'tinh_thanh_pho',
+//          'parent' => $field_dia_chi_quan_huyen
+        ])->save();
+        $huyen_id = Term::create([
+          'name' => $lines[1], 
+          'vid' => 'tinh_thanh_pho',
+          'parent' => $tinh_id->id()
+        ])->save();
+        $xa_id = Term::create([
+          'name' => $lines[2], 
+          'vid' => 'tinh_thanh_pho',
+          'parent' => $huyen_id->id()
+        ])->save();
+      }
+    }
+    fclose($myfile);
+//    $html = file_get_html($url);
+//    $provinces = $html->find('select[id=TinhThanhIDValue] option');
+//    foreach ($provinces as $province) {      
+//      if(strlen($province->attr['value']) > 0) {
+//        $this->get_all_url_quan_huyen ($province->attr['value'], $province->plaintext);
+//      }        
+//    }      
     return t('Complete');
   }
   
@@ -267,3 +350,5 @@ class DefaultService implements DefaultServiceInterface {
     return $result;
   }
 }
+
+

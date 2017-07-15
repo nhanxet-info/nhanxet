@@ -13,3 +13,10 @@ get_content.content_controller_get_quan_huyen:
     _title: 'Get Content (Quan/Huyen)'
   requirements:
     _permission: 'access administration pages'
+get_content.content_controller_get_phuong_xa_url:
+  path: '/get_phuong_xa_url'
+  defaults:
+    _controller: '\Drupal\get_content\Controller\ContentController::get_phuong_xa_url'
+    _title: 'Get Content (Phuong/Xa)'
+  requirements:
+    _permission: 'access administration pages'

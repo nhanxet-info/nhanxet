@@ -68,27 +68,15 @@ class ContentController extends ControllerBase {
     ];    
   }
   
-  public function test($arr) {
-    $first = $last = 0;
-    $length = count($arr);
-    $sum = array_sum($arr);
-    $collect = [];
-    foreach ($arr as $k => $v) {
-      if ($k !== 0 && $k !== ($length - 1)) {
-        $first = $first + $arr[$k];
-        $last = $last - $arr[$k];
-      }
-      else if($k == 0) {
-        $first = 0;
-        $last = $sum - $arr[$key];
-      }
-      else { // if ($k == ($length - 1)) {
-        $first = $sum - $arr[$key];
-        $last = 0;
-      }
-      if ($first === $last)
-        $collect[] = $k;
-    }
-    return $collect;
+  public function get_phuong_xa_url() {
+    $parameters = \Drupal::request()->query;
+    $parameters = $parameters->all();    
+    $url = $parameters['url'];
+    $this->get_content_default->get_all_url_phuong_xa($url);
+    
+    return [
+      '#type' => 'markup',
+      '#markup' => 'Get Phuong/Xa Completely',
+    ];    
   }
 }
