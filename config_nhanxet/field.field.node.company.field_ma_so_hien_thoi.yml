@@ -1,0 +1,19 @@
+uuid: 12c4752f-0501-420c-9715-a0b5c398b738
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ma_so_hien_thoi
+    - node.type.company
+id: node.company.field_ma_so_hien_thoi
+field_name: field_ma_so_hien_thoi
+entity_type: node
+bundle: company
+label: 'Mã số hiện thời'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

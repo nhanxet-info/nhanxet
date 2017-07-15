@@ -1,0 +1,19 @@
+uuid: 252c330f-d88d-418e-aec2-ee0b232177e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ma_so_dtnt
+    - node.type.company
+id: node.company.field_ma_so_dtnt
+field_name: field_ma_so_dtnt
+entity_type: node
+bundle: company
+label: 'Mã số ĐTNT'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,19 @@
+uuid: 50fd1f0f-854a-4251-bb48-cf3c4a907d87
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ngay_nhan_tk
+    - node.type.company
+id: node.company.field_ngay_nhan_tk
+field_name: field_ngay_nhan_tk
+entity_type: node
+bundle: company
+label: 'Ngày nhận TK'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

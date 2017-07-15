@@ -1,0 +1,11 @@
+uuid: 1928e39f-7401-499f-844a-f2223cb173be
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.tinh_thanh_pho
+id: taxonomy_term.tinh_thanh_pho
+target_entity_type_id: taxonomy_term
+target_bundle: tinh_thanh_pho
+default_langcode: site_default
+language_alterable: false

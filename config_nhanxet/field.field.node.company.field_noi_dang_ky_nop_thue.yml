@@ -1,0 +1,19 @@
+uuid: ba25cea8-7820-44b0-b565-6aa8c44ce53f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_noi_dang_ky_nop_thue
+    - node.type.company
+id: node.company.field_noi_dang_ky_nop_thue
+field_name: field_noi_dang_ky_nop_thue
+entity_type: node
+bundle: company
+label: 'Nơi đăng ký nộp thuế'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

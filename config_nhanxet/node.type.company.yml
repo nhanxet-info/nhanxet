@@ -1,0 +1,17 @@
+uuid: ac808cd2-eed4-4bf5-bd06-010d4f499289
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Company
+type: company
+description: ''
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: true

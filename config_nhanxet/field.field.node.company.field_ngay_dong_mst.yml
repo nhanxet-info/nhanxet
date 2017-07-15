@@ -1,0 +1,19 @@
+uuid: a4e64b4e-167c-4e56-88a0-805dda9d1fb9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ngay_dong_mst
+    - node.type.company
+id: node.company.field_ngay_dong_mst
+field_name: field_ngay_dong_mst
+entity_type: node
+bundle: company
+label: 'Ngày đóng MST'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,26 @@
+uuid: 3dc3fa82-e1d1-42b6-8af4-515cb2c5fb76
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_dia_chi_phuong_xa
+    - node.type.company
+id: node.company.field_dia_chi_phuong_xa
+field_name: field_dia_chi_phuong_xa
+entity_type: node
+bundle: company
+label: 'Địa chỉ phường/xã'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles: {  }
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
