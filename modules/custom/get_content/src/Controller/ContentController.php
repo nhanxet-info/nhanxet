@@ -46,13 +46,37 @@ class ContentController extends ControllerBase {
     $parameters = \Drupal::request()->query;
     $parameters = $parameters->all();    
     $url = $parameters['url'];
-//    $term_id = $parameters['tid'];
-    $data = $this->get_content_default->get_all_url_per_page($url);
+    $limit = $parameters['limit'];
+//    for($i = 1; $i< 100000000; $i++) {
+//      echo rand(1,$i);
+//    }
+    $data = $this->get_content_default->get_all_url_per_page($url,$limit);
+//    echo 'ok';
+//    return [
+//      '#type' => 'markup',
+//      '#markup' => 'Complete 111',
+//    ];  
+    echo $data;
+    if($data > 0) {
+      $url_arr = explode('?p=', $url);
+      $next_url = $url_arr[0] . '?p=' . ($limit);
+      $limit += 20;
+      header("Refresh:2; http://nhanxet.local/get_content?limit=$limit&url=$next_url");
+    }
+    else {
+      $filename = 'full_url';
+      $file = file($filename);
+      $output = $file[0];
+//      echo $output;
+      unset($file[0]); //delete first line
+      file_put_contents($filename, $file); //delete first line
+      header("Refresh:2; http://nhanxet.local/get_content?limit=21&url=$output");
+    }
     
     return [
-      '#type' => 'markup',
-      '#markup' => 'Complete',
-    ];    
+      '#theme' => 'get_content',
+      '#test_var' => $data,
+    ];
   }  
   
   public function get_quan_huyen() {

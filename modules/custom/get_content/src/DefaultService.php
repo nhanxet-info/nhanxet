@@ -47,7 +47,7 @@ class DefaultService implements DefaultServiceInterface {
     return t('Complete');
   }
 
-  public function get_all_url_per_page($url) {
+  public function get_all_url_per_page($url, $limit) {
     $url_arr = explode('?p=', $url);
     $current = $url_arr[1];
     $next = $current + 1;
@@ -60,12 +60,12 @@ class DefaultService implements DefaultServiceInterface {
         $this->get_data_via_page($link->href, $url);
       }
       sleep(1); //page 22 will see some issues(delayed 2s)
-      
-      header("Location: http://nhanxet.local/get_content?url=$url_arr[0]?p=$next");
-      exit;
-      
+      if($next < $limit) {
+        header("Location: http://nhanxet.local/get_content?limit=$limit&url=$url_arr[0]?p=$next");
+        exit;
+      }
     }   
-    return t('Complete');
+    return count($links);
   }
 
   public function get_data_via_page($url, $p_url) {
