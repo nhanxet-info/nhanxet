@@ -47,21 +47,14 @@ class ContentController extends ControllerBase {
     $parameters = $parameters->all();    
     $url = $parameters['url'];
     $limit = $parameters['limit'];
-//    for($i = 1; $i< 100000000; $i++) {
-//      echo rand(1,$i);
-//    }
     $data = $this->get_content_default->get_all_url_per_page($url,$limit);
-//    echo 'ok';
-//    return [
-//      '#type' => 'markup',
-//      '#markup' => 'Complete 111',
-//    ];  
     echo $data;
+    $i = 2;
     if($data > 0) {
       $url_arr = explode('?p=', $url);
       $next_url = $url_arr[0] . '?p=' . ($limit);
       $limit += 20;
-      header("Refresh:2; http://nhanxet.local/get_content?limit=$limit&url=$next_url");
+      header("Refresh:$i; http://nhanxet.local/get_content?limit=$limit&url=$next_url");
     }
     else {
       $filename = 'full_url';
@@ -70,7 +63,7 @@ class ContentController extends ControllerBase {
 //      echo $output;
       unset($file[0]); //delete first line
       file_put_contents($filename, $file); //delete first line
-      header("Refresh:2; http://nhanxet.local/get_content?limit=21&url=$output");
+      header("Refresh:$i; http://nhanxet.local/get_content?limit=21&url=$output");
     }
     
     return [

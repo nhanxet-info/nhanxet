@@ -71,7 +71,16 @@ class DefaultService implements DefaultServiceInterface {
   public function get_data_via_page($url, $p_url) {
     $base_source_url = 'https://thongtindoanhnghiep.co/';
     $html = file_get_html($base_source_url . $url);
-    $title = html_entity_decode($html->find('h1', 0)->innertext);
+//    if(!(isset($html) && strlen($html) > 0))
+//      return;
+//    try {
+//      $html = file_get_html($base_source_url . $url);
+//      $title = html_entity_decode($html->find('h1', 0)->innertext);
+//    } catch (Exception $ex) {
+//      sleep(5);
+//      $html = file_get_html($base_source_url . $url);
+//      $title = html_entity_decode($html->find('h1', 0)->innertext);
+//    }    
 
 //    $term_name = $html->find('span[class=cat-links] a', 0)->innertext;
 //    $term_id = $this->get_tid_by_name($term_name);
@@ -95,7 +104,8 @@ class DefaultService implements DefaultServiceInterface {
     }
     $data = [
                 'type' => 'company',
-                'title' => $title,
+//                'title' => $title,
+                'title' => $data_arr[3],
                 'status' => 1,
                 'revision' => 0,
                 'field_ma_so_dtnt' => [
