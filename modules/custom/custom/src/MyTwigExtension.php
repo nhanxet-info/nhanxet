@@ -21,15 +21,8 @@ class MyTwigExtension extends \Twig_Extension {
    */
   public function getFunctions() {
     return [
-      new \Twig_SimpleFunction('fb_status', [$this, 'fb_status']),
       new \Twig_SimpleFunction('get_viewing', [$this, 'get_viewing']),
     ];
-  }
-
-  public function fb_status($url) {
-    $base_url = \Drupal::request()->getHost();
-    $json = json_decode(file_get_contents("http://graph.facebook.com/?ids=http://" . $base_url . $url),true);
-    return $json;
   }
   
   public function get_viewing($nid) {

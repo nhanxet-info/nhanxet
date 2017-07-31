@@ -47,7 +47,7 @@ class DefaultService implements DefaultServiceInterface {
     return t('Complete');
   }
 
-  public function get_all_url_per_page($url, $limit) {
+  public function get_all_url_per_page($url, $limit,$date) {
     $url_arr = explode('?p=', $url);
     $current = $url_arr[1];
     $next = $current + 1;
@@ -56,41 +56,27 @@ class DefaultService implements DefaultServiceInterface {
     $html = file_get_html($url);
     $links = $html->find('h2 a');
     if(count($links) > 0) {
+      $total = 0;
       foreach ($links as $link) {
-        $this->get_data_via_page($link->href, $url);
+        $check = $this->get_data_via_page($link->href, $url, $date);
+        $total += $check;
+        if($check == 0)
+          break;
       }
       sleep(1); //page 22 will see some issues(delayed 2s)
-      if($next < $limit) {
-        header("Location: http://nhanxet.local/get_content?limit=$limit&url=$url_arr[0]?p=$next");
+      if($next < $limit && $total == 15) {
+        header("Location: http://nhanxet.local/get_content?limit=$limit&date=$date&url=$url_arr[0]?p=$next");
         exit;
       }
+      return $total;
     }   
-    return count($links);
+    return $total;
   }
 
-  public function get_data_via_page($url, $p_url) {
+  public function get_data_via_page($url, $p_url, $date) {
     $base_source_url = 'https://thongtindoanhnghiep.co/';
     $html = file_get_html($base_source_url . $url);
-//    if(!(isset($html) && strlen($html) > 0))
-//      return;
-//    try {
-//      $html = file_get_html($base_source_url . $url);
-//      $title = html_entity_decode($html->find('h1', 0)->innertext);
-//    } catch (Exception $ex) {
-//      sleep(5);
-//      $html = file_get_html($base_source_url . $url);
-//      $title = html_entity_decode($html->find('h1', 0)->innertext);
-//    }    
 
-//    $term_name = $html->find('span[class=cat-links] a', 0)->innertext;
-//    $term_id = $this->get_tid_by_name($term_name);
-//    if(!isset($term_id) || $term_id < 1) {
-//      $term_id = Term::create([
-//        'name' => $term_name, 
-//        'vid' => 'funny_story',
-//      ])->save();
-//    }   
-//    $body = '';
     $table = $html->find('table[class=table table-striped table-bordered table-responsive table-details]', 0);
 
     $tds = $table->find('td');
@@ -102,6 +88,9 @@ class DefaultService implements DefaultServiceInterface {
       else
         $data_arr[] = html_entity_decode($td->innertext);
     }
+    dpm($data_arr[1]);
+    if(strtotime(str_replace(' ','', $data_arr[1])) < $date) //1499878800 => 13-07-2017
+      return 0;
     $data = [
                 'type' => 'company',
 //                'title' => $title,
@@ -217,51 +206,10 @@ class DefaultService implements DefaultServiceInterface {
                     'value' => $p_url
                 ],
     ];
-//    $address = $data_arr[7];
-//    $address_arr = explode(',', $address);
-//    $count = count($address_arr);
-//    if($count > 3) {      
-//      $test = trim($address_arr[$count - 3]);
-//      $test = trim($address_arr[$count - 2]);
-//      $test = trim($address_arr[$count - 1]);
-//      $field_dia_chi_phuong_xa = $this->get_tid_by_name(trim($address_arr[$count - 3]));
-//      $field_dia_chi_quan_huyen = $this->get_tid_by_name(trim($address_arr[$count - 2]));
-//      $field_dia_chi_tinh_thanh_pho = $this->get_tid_by_name(trim($address_arr[$count - 1]));
-//      if($field_dia_chi_tinh_thanh_pho < 1) {
-//        $term_id_tinh_thanhpho = Term::create([
-//          'name' => trim($address_arr[$count - 1]), 
-//          'vid' => 'tinh_thanh_pho',          
-//        ])->save();
-//        sleep(1);
-//        $field_dia_chi_tinh_thanh_pho = $term_id_tinh_thanhpho->id();        
-//      }
-//      $data['field_dia_chi_tinh_thanh_pho']['target_id'] = $field_dia_chi_tinh_thanh_pho;
-//      if($field_dia_chi_quan_huyen < 1) {
-//        $term_id_quan_huyen = Term::create([
-//          'name' => trim($address_arr[$count - 2]), 
-//          'vid' => 'tinh_thanh_pho',
-//          'parent' => $field_dia_chi_tinh_thanh_pho
-//        ])->save();
-//        sleep(1);
-//        $field_dia_chi_quan_huyen = $term_id_quan_huyen->id();
-//      }
-//      $data['field_dia_chi_quan_huyen']['target_id'] = $field_dia_chi_quan_huyen;
-//      if($field_dia_chi_phuong_xa > 0)
-//        $data['field_dia_chi_phuong_xa']['target_id'] = $field_dia_chi_phuong_xa;
-//      else {
-//        $term_id_phuong_xa = Term::create([
-//          'name' => trim($address_arr[$count - 3]), 
-//          'vid' => 'tinh_thanh_pho',
-//          'parent' => $field_dia_chi_quan_huyen
-//        ])->save();
-//        sleep(1);
-//        $data['field_dia_chi_phuong_xa']['target_id'] = $term_id_phuong_xa->id();
-//      }
-//      $field_dia_chi_tru_so_chi_tiet = array_slice($t_arr, 0, $count - 3);
-//      $data['field_dia_chi_tru_so_chi_tiet']['value'] = implode(', ', $field_dia_chi_tru_so_chi_tiet);
-//    }    
+
     $node = Node::create($data);
     $node->save();
+    return 1;
   }
   
   public function get_all_url_province($url) {
