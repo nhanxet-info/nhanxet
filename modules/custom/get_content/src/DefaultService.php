@@ -95,7 +95,7 @@ class DefaultService implements DefaultServiceInterface {
                 'type' => 'company',
 //                'title' => $title,
                 'title' => $data_arr[3],
-                'status' => 1,
+                'status' => 0,
                 'revision' => 0,
                 'field_ma_so_dtnt' => [
                     'value' => $data_arr[0]
