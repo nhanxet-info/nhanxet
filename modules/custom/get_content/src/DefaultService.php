@@ -17,6 +17,9 @@ class DefaultService implements DefaultServiceInterface {
    */
   private $source_website;
   public function __construct() {
+    print_r(__FILE__);
+    print_r(getcwd());
+    die;
     include "modules/custom/get_content/src/include/simple_html_dom.php";
     $this->source_website = 'https://thongtindoanhnghiep.co';
   }
