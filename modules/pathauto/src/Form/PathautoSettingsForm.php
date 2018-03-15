@@ -2,7 +2,7 @@
 
 namespace Drupal\pathauto\Form;
 
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -199,10 +199,9 @@ class PathautoSettingsForm extends ConfigFormBase {
     );
 
     $form['punctuation'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Punctuation'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#open' => FALSE,
       '#tree' => TRUE,
     );
 
@@ -219,7 +218,7 @@ class PathautoSettingsForm extends ConfigFormBase {
       }
       $form['punctuation'][$name] = array(
         '#type' => 'select',
-        '#title' => $details['name'] . ' (<code>' . SafeMarkup::checkPlain($details['value']) . '</code>)',
+        '#title' => $details['name'] . ' (<code>' . Html::escape($details['value']) . '</code>)',
         '#default_value' => $details['default'],
         '#options' => array(
           PathautoGeneratorInterface::PUNCTUATION_REMOVE => $this->t('Remove'),
@@ -241,7 +240,6 @@ class PathautoSettingsForm extends ConfigFormBase {
 
     $form_state->cleanValues();
 
-    $original_entity_types = $config->get('enabled_entity_types');
     foreach ($form_state->getValues() as $key => $value) {
       if ($key == 'enabled_entity_types') {
         $enabled_entity_types = [];
