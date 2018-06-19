@@ -1,7 +1,0 @@
-services:
-  get_content.default:
-    class: Drupal\get_content\DefaultService
-    arguments: []
-  get_content.simple_html_dom:
-    class: Drupal\get_content\DefaultService
-    arguments: []

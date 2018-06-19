@@ -1,6 +1,0 @@
-# src/MyTwigModule.services.yml
-services:
-  custom.twig.MyTwigExtension:
-    class: Drupal\custom\MyTwigExtension
-    tags:
-      - { name: twig.extension }

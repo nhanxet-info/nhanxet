@@ -1,5 +1,0 @@
-name: Get Content
-type: module
-description: Get content from other websites
-core: 8.x
-package: Custom

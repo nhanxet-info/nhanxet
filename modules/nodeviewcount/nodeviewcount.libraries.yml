@@ -1,7 +1,0 @@
-nodeviewcount.base:
-  js:
-    nodeviewcount.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupal
-    - core/drupalSettings

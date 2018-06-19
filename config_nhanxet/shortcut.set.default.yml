@@ -1,8 +1,0 @@
-uuid: 7db64ea5-f54e-44ad-a5c1-04f69b9cfcb1
-langcode: vi
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: U5VlGjd_SfV0Qm_EfnaynOfc549cNscFAx48JfYoMRI
-id: default
-label: 'Mặc định'
