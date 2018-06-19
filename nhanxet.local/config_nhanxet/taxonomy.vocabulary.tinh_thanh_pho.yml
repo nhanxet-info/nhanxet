@@ -1,0 +1,9 @@
+uuid: cf9a0e10-a489-42eb-95c9-8e4b13f9747b
+langcode: vi
+status: true
+dependencies: {  }
+name: 'Tỉnh Thành Phố'
+vid: tinh_thanh_pho
+description: ''
+hierarchy: 0
+weight: 0

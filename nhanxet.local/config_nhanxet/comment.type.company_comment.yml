@@ -1,0 +1,8 @@
+uuid: 1cd38fb8-aa84-4ef7-bab3-de4e68760e13
+langcode: en
+status: true
+dependencies: {  }
+id: company_comment
+label: 'Company Comment'
+target_entity_type_id: block_content
+description: ''

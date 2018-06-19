@@ -1,0 +1,19 @@
+uuid: 685ccc46-0dcb-4425-b43e-71883efa9de1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_dien_thoai_fax
+    - node.type.company
+id: node.company.field_dien_thoai_fax
+field_name: field_dien_thoai_fax
+entity_type: node
+bundle: company
+label: 'Điện thoại / Fax'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

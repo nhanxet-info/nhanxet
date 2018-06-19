@@ -1,0 +1,19 @@
+uuid: a7a4e563-15e8-4b4e-87e9-1046d1087769
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ngay_cap
+    - node.type.company
+id: node.company.field_ngay_cap
+field_name: field_ngay_cap
+entity_type: node
+bundle: company
+label: 'Ngày cấp'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

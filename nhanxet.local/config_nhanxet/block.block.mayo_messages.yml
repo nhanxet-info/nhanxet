@@ -1,0 +1,22 @@
+uuid: 6cf5660c-d316-4c9d-b815-743b96468e5c
+langcode: vi
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - mayo
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: mayo_messages
+theme: mayo
+region: header
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

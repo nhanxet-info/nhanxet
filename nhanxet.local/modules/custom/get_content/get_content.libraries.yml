@@ -1,0 +1,6 @@
+jquery-timing:
+  version: 1.x
+  css:    
+  js:
+    src/js/jquery-timing.min.js: {}
+    src/js/get_content.js: {}

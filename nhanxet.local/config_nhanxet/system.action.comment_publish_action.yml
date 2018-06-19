@@ -1,0 +1,13 @@
+uuid: 89a0410a-7391-406f-b7f6-1439a3774240
+langcode: vi
+status: true
+dependencies:
+  module:
+    - comment
+_core:
+  default_config_hash: f6w_Pd30AyyDIoMkD4QpPMM2-I8FTEHICchFVOpjiCI
+id: comment_publish_action
+label: 'Xuất bản bình luận'
+type: comment
+plugin: comment_publish_action
+configuration: {  }

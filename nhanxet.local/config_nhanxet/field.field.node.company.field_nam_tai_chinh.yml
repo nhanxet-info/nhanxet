@@ -1,0 +1,19 @@
+uuid: b39fb64d-ea76-42d0-a41c-796e129fef72
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_nam_tai_chinh
+    - node.type.company
+id: node.company.field_nam_tai_chinh
+field_name: field_nam_tai_chinh
+entity_type: node
+bundle: company
+label: 'Năm tài chính'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
